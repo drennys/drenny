@@ -321,8 +321,6 @@ window.addEventListener("load", () => {
     audio.volume = 0;
   });
 
-  audio.addEventListener("canplay", () => {
-    audio.play().catch(() => {}); // evita errores si el navegador se pone estricto
 
     let volumen = 0;
     const intervalo = setInterval(() => {
