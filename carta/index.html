@@ -1,1 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pa Osa Preciosa</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+    <audio id="musica" src="/musica/animals.mp3"  type="audio/mpeg"></audio>
+    
+  
+</head>
+<body>
+    
+      <script>
+  document.addEventListener("click", () => {
+    const audio = document.querySelector("audio");
+    audio.volume = 0.3
+    audio.muted = false;
+    audio.play();
+  });
+</script>
+    <!-- Notificación inicial -->
+    <div id="notification" class="notification">
+        <div class="notification-content">
+            <div class="notification-icon">✉️</div>
+            <div class="notification-text">
+                <p class="notification-title">Tienes un nuevo mensaje</p>
+                <p class="notification-subtitle">Checa la carta weeeee</p>
+            </div>
+            <div class="notification-close">&times;</div>
+        </div>
+    </div>
 
+    <!-- Carta animada -->
+    <div class="letter-container">
+        <div class="letter-image" id="letterContainer">
+            <div class="animated-mail">
+                <div class="back-fold"></div>
+                <div class="letter">
+                    <div class="letter-border"></div>
+                    <div class="letter-title"></div>
+                    <div class="letter-context"></div>
+                    <div class="letter-stamp">
+                        <div class="letter-stamp-inner"></div>
+                    </div>
+                </div>
+                <div class="top-fold"></div>
+                <div class="body"></div>
+                <div class="left-fold"></div>
+            </div>
+            <div class="shadow"></div>
+        </div>
+        <div class="instruction-text">
+        </div>
+    </div>
+
+    <!-- Modal de la carta abierta -->
+    <div id="letterModal" class="modal">
+        <div class="modal-overlay" id="modalOverlay"></div>
+        <div class="modal-content">
+            <span class="close-modal" id="closeModal">&times;</span>
+            <div class="letter-paper" id="letterPaper">
+                <div class="letter-header">
+                    <h1 id="letterTitle">Feliz Cumpleaños mi Princesa</h1>
+                    <div class="letter-date" id="letterDate">24 de Abril, 2026</div>
+                </div>
+                <div class="letter-body" id="letterBody">
+                    <p class="greeting" id="greeting"></p>
+                    <p id="paragraph1"></p>
+                    <p id="paragraph2"></p>
+                    <p id="paragraph3"></p>
+                    <p id="paragraph4"></p>
+                    <p class="signature" id="signature1"></p>
+                    <p class="signature-name" id="signature2"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mensaje de amor final -->
+    <div id="loveMessage" class="love-message">
+        <p id="loveText"></p>
+    </div>
+
+    <script>
+        // Textos para el efecto typing
+        const letterTexts = {
+            greeting: "Querida Osa Preciosa ❤️,",
+            paragraph1: "Feeliz cumpleaños Mi Turroncito, Mi panelita, Mi Shunni, Mi Señora y Esposa… hoy celebro no solo el día en que naciste, sino el regalo tan grande que es tenerte en mi vida. No sabes cuánto agradezco que existas, que seas tú, con esa forma tan única de hacerme feliz incluso en los días más simples.",
+            paragraph2: "Eres mi lugar seguro, mi calma, mi alegría diaria. Me encanta todo de ti, desde lo más dulce hasta esas cositas tuyas que solo yo conozco que no diré pero comienzan con Pe y terminan con Dos, y que me enamoran cada día más JUAS JUAS, Con usted aprendí que el amor se siente bonito, se siente tranquilo… se siente como hogar.",
+            paragraph3: "Quiero que hoy, incluso si estás sola por momentos, recuerdes que nunca lo estás realmente. Porque aquí estoy yo, pensándote, queriéndote, eligiéndote siempre. Eres lo mejor que me ha pasado, y no cambiaría nada de lo que nos llevó hasta aquí, mi bbsauria.",
+            paragraph4: "Y Gracias por ser tú, por ser mi todo, por dejarme amarte aunque no sea tan expresivo a distancia :/ Hoy y siempre, voy a estar para ti, Mi Loba... Feliz Cumpleaños, amor de mi vida",
+            signature1: "Con mucho amor y cariño",
+            signature2: "Tu lobo domesticado."
+        };
+
+        const loveMessageText = "Te amo, hoy, siempre, infinitamente";
+
+        // Función para efecto typing
+        function typeText(element, text, speed = 30) {
+            return new Promise((resolve) => {
+                element.textContent = '';
+                let i = 0;
+                const timer = setInterval(() => {
+                    if (i < text.length) {
+                        element.textContent += text.charAt(i);
+                        i++;
+                    } else {
+                        clearInterval(timer);
+                        resolve();
+                    }
+                }, speed);
+            });
+        }
+
+        // Función para mostrar la carta con typing
+        async function showLetterWithTyping() {
+            const modal = document.getElementById('letterModal');
+            const letterPaper = document.getElementById('letterPaper');
+            
+            // Mostrar modal con animación
+            modal.style.display = 'block';
+            modal.classList.add('modal-show');
+            
+            // Animación de entrada del papel
+            setTimeout(() => {
+                letterPaper.classList.add('letter-entrance');
+            }, 100);
+
+            // Esperar a que termine la animación de entrada
+            setTimeout(async () => {
+                // Typing secuencial de cada párrafo
+                await typeText(document.getElementById('greeting'), letterTexts.greeting, 40);
+                await new Promise(resolve => setTimeout(resolve, 500));
+                
+                await typeText(document.getElementById('paragraph1'), letterTexts.paragraph1, 25);
+                await new Promise(resolve => setTimeout(resolve, 300));
+                
+                await typeText(document.getElementById('paragraph2'), letterTexts.paragraph2, 25);
+                await new Promise(resolve => setTimeout(resolve, 300));
+                
+                await typeText(document.getElementById('paragraph3'), letterTexts.paragraph3, 25);
+                await new Promise(resolve => setTimeout(resolve, 300));
+                
+                await typeText(document.getElementById('paragraph4'), letterTexts.paragraph4, 25);
+                await new Promise(resolve => setTimeout(resolve, 500));
+                
+                await typeText(document.getElementById('signature1'), letterTexts.signature1, 35);
+                await new Promise(resolve => setTimeout(resolve, 200));
+                
+                await typeText(document.getElementById('signature2'), letterTexts.signature2, 35);
+            }, 800);
+        }
+
+        // Función para cerrar la carta
+        function closeLetter() {
+            const modal = document.getElementById('letterModal');
+            const letterPaper = document.getElementById('letterPaper');
+            const loveMessage = document.getElementById('loveMessage');
+            
+            // Animación de salida
+            letterPaper.classList.add('letter-exit');
+            
+            setTimeout(() => {
+                modal.classList.remove('modal-show');
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    letterPaper.classList.remove('letter-entrance', 'letter-exit');
+                    
+                    // Limpiar textos
+                    Object.keys(letterTexts).forEach(key => {
+                        const element = document.getElementById(key);
+                        if (element) element.textContent = '';
+                    });
+                    
+                    // Mostrar mensaje de amor
+                    loveMessage.classList.add('show');
+                    typeText(document.getElementById('loveText'), loveMessageText, 100);
+                    
+                    // Ocultar mensaje después de 4 segundos
+                    setTimeout(() => {
+                        loveMessage.classList.remove('show');
+                    }, 20000);
+                }, 300);
+            }, 500);
+        }
+
+        // Mostrar notificación al cargar la página
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('notification').classList.add('show');
+                
+                // Auto-ocultar notificación después de 5 segundos
+                setTimeout(() => {
+                    document.getElementById('notification').classList.remove('show');
+                }, 5000);
+            }, 1000);
+        });
+
+        // La notificación ahora solo se cierra, no abre la carta
+        document.querySelector('.notification-close').addEventListener('click', function(e) {
+            e.stopPropagation();
+            document.getElementById('notification').classList.remove('show');
+        });
+
+        // Solo la carta abre el modal
+        document.getElementById('letterContainer').addEventListener('click', function() {
+            document.getElementById('notification').classList.remove('show');
+            showLetterWithTyping();
+        });
+
+        // Cerrar modal
+        document.getElementById('closeModal').addEventListener('click', function() {
+            closeLetter();
+        });
+
+        // Cerrar modal haciendo clic en el overlay
+        document.getElementById('modalOverlay').addEventListener('click', function() {
+            closeLetter();
+        });
+    </script>
+<button onclick="location.href='../pastel-animado/index.html'"class="btn-continuar" >Continuar</button>
+<script>
+window.addEventListener("load", () => {
+    setTimeout(() => {
+        document.querySelector(".btn-continuar").classList.add("mostrar");
+    }, 40000); // 5000 ms = 5 segundos
+});
+</script>
+</body>
+</html>
