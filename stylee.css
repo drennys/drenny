@@ -1,0 +1,160 @@
+body{
+    padding:0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    
+    cursor: url(./cursor.svg),auto;
+    transition: 0.5s;
+}
+body {
+            margin: 0;
+            overflow: hidden;
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+           background-color: #F9CB3A;; /* Un color crema de fondo */
+        }
+
+        /* Contenedor de los textos en la parte superior */
+        .header-container {
+            position: absolute;
+            top: 20px;
+            text-align: center;
+            width: 100%;
+            z-index: 10;
+        }
+
+        h1, h2 {
+            margin: 5px 0;
+            color: #3f1c0d;
+        }
+
+        /* Botón lateral derecho */
+        .btn-continuar {
+            position:absolute;
+            right: 100px;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 15px 30px;
+            background-color: #e07320;
+            color: white;
+            border: 4px solid #3f1c0d;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+            z-index: 5;
+        }
+
+        .btn-continuar:hover {
+            background-color: #af571d;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        /* Aseguramos que el SVG mantenga su proporción */
+        svg {
+            max-height: 80vh;
+            width: auto;
+        }
+ .boton-purin {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  width: 350px;
+  height: 350px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+.tracker-container {
+  width: 82%;
+  height: 59%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  align-items: 50px;
+}
+
+/* Zonas invisibles */
+.tracker-container div {
+  width: 100%;
+  height: 100%;
+  z-index: 60;
+}
+
+.purin-svg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0; left: 0;
+  z-index: 10;
+  transition: transform 0.2s ease;
+}
+
+/* Estilo para las piezas que se mueven (Ojos, nariz, lazo) */
+.piezas-moviles {
+  /* Curva cubic-bezier para un efecto elástico y suave */
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  transform-origin: center;
+  /* Optimización de rendimiento */
+  will-change: transform;
+}
+
+/* Efecto opcional: Que la cara completa también se incline un poquito */
+.todo-el-perro {
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  transform-origin: center;
+}
+
+/* --- Lógica de movimiento con mayor suavidad --- */
+
+/* Cuando pasas el mouse por las zonas, movemos las piezas internas */
+.tr-1:hover ~ .purin-svg .piezas-moviles { transform: translate(-18px, -18px); }
+.tr-2:hover ~ .purin-svg .piezas-moviles { transform: translate(0px, -20px); }
+.tr-3:hover ~ .purin-svg .piezas-moviles { transform: translate(18px, -18px); }
+.tr-4:hover ~ .purin-svg .piezas-moviles { transform: translate(-20px, 0px); }
+.tr-6:hover ~ .purin-svg .piezas-moviles { transform: translate(20px, 0px); }
+.tr-7:hover ~ .purin-svg .piezas-moviles { transform: translate(-18px, 18px); }
+.tr-8:hover ~ .purin-svg .piezas-moviles { transform: translate(0px, 20px); }
+.tr-9:hover ~ .purin-svg .piezas-moviles { transform: translate(18px, 18px); }
+
+/* Extra: Que el perro entero rote sutilmente hacia la dirección */
+.tr-4:hover ~ .purin-svg .todo-el-perro { transform: rotate(-2deg); }
+.tr-6:hover ~ .purin-svg .todo-el-perro { transform: rotate(2deg); }
+
+/* Animación del botón completo */
+.boton-purin:active {
+  transform: scale(0.9);
+}
+.header-container h1,
+.header-container h2 {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: aparecer 1s ease forwards;
+}
+
+.header-container h1 {
+    animation-delay: 0.5s;
+}
+
+.header-container h2 {
+    animation-delay: 1.5s;
+}
+
+@keyframes aparecer {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
