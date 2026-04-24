@@ -1,0 +1,417 @@
+* {
+  box-sizing: border-box;
+}
+:root {
+  --tongue: #c12115;
+  --pupil: #fff;
+  --icing: #f2f2f2;
+  --stroke: #1a1a1a;
+}
+body {
+  --frosting: hsl(var(--frosting-hue, 0), 100%, 55%);
+  --lightness: 50;
+  --flame: 0;
+  --glow-hue: 40;
+  --glow-saturation: 50;
+  --glow-lightness: 35;
+  --glow-alpha: 0.4;
+  --transparency-alpha: 0;
+  --glow: hsla(var(--glow-hue), calc(var(--glow-saturation) * 1%), calc(var(--glow-lightness) * 1%), var(--glow-alpha));
+  --transparent: hsla(0, 0%, 0%, var(--transparency-alpha));
+  display: flex;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  max-width: 100vw;
+  background: hsl(180, 30%, calc(var(--lightness, 50) * 1%));
+  margin: 0;
+  padding: 0;
+}
+.whitespace {
+  width: 7px;
+}
+.birthday-button {
+  position: relative;
+  transform: scale(1.2);
+  cursor: pointer;
+}
+.birthday-button__text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-family: sans-serif;
+  font-weight: bold;
+}
+.birthday-button__text .char {
+  display: inline-block;
+  color: hsl(var(--hue, 0), calc(var(--char-sat, 0) * 1%), calc(var(--char-light, 0) * 1%));
+}
+.birthday-button:before {
+  content: '';
+  position: absolute;
+  height: 240px;
+  width: 240px;
+  background: radial-gradient(var(--glow), var(--transparent) 30%), radial-gradient(var(--glow), var(--transparent) 50%);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -70%) scale(calc(var(--flame) * 3));
+  z-index: 2;
+  filter: blur(15px);
+  opacity: var(--flame);
+}
+.birthday-button:after {
+  content: '';
+  height: 30px;
+  width: 400px;
+  filter: blur(15px);
+  position: absolute;
+  background: radial-gradient(var(--glow), var(--transparent) 20%), radial-gradient(var(--glow), var(--transparent));
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(calc(var(--flame) * 1));
+  opacity: var(--flame);
+}
+.birthday-button__button {
+  width: 240px;
+  height: 100px;
+  position: relative;
+  border: 0;
+  background: var(--icing);
+  border-radius: 14px;
+  cursor: pointer;
+}
+.birthday-button__cake {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 289.5px;
+  display: none;
+}
+.cake__eye-body {
+  fill: var(--stroke);
+}
+.cake__eye-pupil {
+  fill: var(--pupil);
+}
+.cake__tongue {
+  fill: var(--tongue);
+}
+.cake__mouth-opening {
+  fill: var(--stroke);
+  stroke: var(--stroke);
+}
+.cake__sprinkle {
+  --sprinkle: hsl(var(--sprinkle-hue, 0), 100%, 75%);
+  fill: var(--sprinkle);
+}
+.cake__frosting--start {
+  fill: var(--frosting);
+}
+.cake__frosting--duplicate {
+  fill: var(--frosting);
+}
+.candle__flame {
+  opacity: var(--flame, 0);
+}
+.candle__flame-outer {
+  fill: #ff711f;
+}
+.candle__flame-inner {
+  fill: #edca1d;
+}
+.face__stroke {
+  stroke: var(--stroke);
+}
+.cake__candle:nth-of-type(1) {
+  --flame: 0;
+}
+.cake__candle:nth-of-type(2) {
+  --flame: 0;
+}
+.cake__candle:nth-of-type(3) {
+  --flame: 0;
+}
+
+/* Estilos para el mensaje con efecto typing - Diseño minimalista y profesional */
+.typing-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Dancing Script', cursive;
+  font-size: 3rem;
+  font-weight: 600;
+  color: #ff6b9d;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1000;
+  text-align: left;
+  max-width: 80vw;
+  max-height: 80vh;
+  overflow: hidden;
+  white-space: nowrap;
+  box-sizing: border-box;
+  padding: 0 2rem;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
+.typing-message.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.typing-text {
+  display: inline-block;
+}
+
+.cursor {
+  display: inline-block;
+  animation: blink 1s infinite;
+  color: #ff6b9d;
+  margin-left: 2px;
+}
+
+/* Contenedor de corazones volando */
+.flying-hearts-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 999;
+}
+
+/* Estilos para corazones volando */
+.flying-heart {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.flying-heart svg {
+  width: 100%;
+  height: 100%;
+  fill: #ff6b9d;
+  filter: drop-shadow(0 0 5px rgba(255, 107, 157, 0.6));
+}
+
+.flying-heart.animate {
+  animation: flyUp 3s ease-out forwards;
+}
+
+@keyframes flyUp {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(0.5) rotate(0deg);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translateY(-100px) scale(1) rotate(180deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-200px) scale(0.3) rotate(360deg);
+  }
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* Media queries para optimización mobile */
+@media (max-width: 768px) {
+  .birthday-button {
+    transform: scale(0.8);
+  }
+  
+  .birthday-button__button {
+    width: 200px;
+    height: 80px;
+  }
+  
+  .birthday-button__text {
+    font-size: 1.2rem;
+  }
+  
+  .birthday-button__cake {
+    width: 240px;
+  }
+  
+  .typing-message {
+    font-size: 2.5rem;
+    max-width: 90vw;
+    padding: 0 5vw;
+    /* Asegurar que esté completamente dentro del viewport */
+    top: 50vh;
+    left: 50vw;
+    transform: translate(-50%, -50%);
+  }
+  
+  .flying-heart {
+    width: 25px;
+    height: 25px;
+  }
+}
+
+@media (max-width: 480px) {
+  .birthday-button {
+    transform: scale(0.7);
+  }
+  
+  .birthday-button__button {
+    width: 180px;
+    height: 70px;
+  }
+  
+  .birthday-button__text {
+    font-size: 1rem;
+  }
+  
+  .birthday-button__cake {
+    width: 200px;
+  }
+  
+  .typing-message {
+    font-size: 2rem;
+    max-width: 85vw;
+    padding: 0 7.5vw;
+    /* Posicionamiento más estricto para mobile */
+    top: 50vh;
+    left: 50vw;
+    transform: translate(-50%, -50%);
+    /* Prevenir cualquier overflow */
+    margin: 0;
+    border: none;
+  }
+  
+  .flying-heart {
+    width: 20px;
+    height: 20px;
+  }
+  
+  body {
+    padding: 1rem;
+    overflow-x: hidden;
+  }
+}
+
+@media (max-width: 375px) {
+  .birthday-button {
+    transform: scale(0.6);
+  }
+  
+  .birthday-button__button {
+    width: 160px;
+    height: 60px;
+  }
+  
+  .birthday-button__text {
+    font-size: 0.9rem;
+  }
+  
+  .birthday-button__cake {
+    width: 180px;
+  }
+  
+  .typing-message {
+    font-size: 1.8rem;
+    max-width: 80vw;
+    padding: 0 10vw;
+    /* Centrado absoluto para pantallas pequeñas */
+    top: 50vh;
+    left: 50vw;
+    transform: translate(-50%, -50%);
+    /* Forzar que esté dentro del viewport */
+    right: auto;
+    bottom: auto;
+  }
+  
+  .flying-heart {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* Media query adicional para pantallas muy pequeñas */
+@media (max-width: 320px) {
+  .typing-message {
+    font-size: 1.5rem;
+    max-width: 75vw;
+    padding: 0 12.5vw;
+    /* Centrado ultra estricto */
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    /* Eliminar cualquier margen que pueda causar overflow */
+    margin: 0 !important;
+    border: 0 !important;
+    outline: 0 !important;
+  }
+  
+  /* Asegurar que el body no cause scroll horizontal */
+  body {
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+  }
+}
+.nav.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.nav {
+  transform: translateY(20px);
+}
+.nav {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999; /* para que esté por encima de todo */
+}
+
+/* Botón */
+.nav button {
+  background: linear-gradient(135deg, #ffd6e0, #cceeff);
+  border: none;
+  padding: 12px 20px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.btn-continuar {
+    /* ... Tus estilos actuales se mantienen igual ... */
+    
+    /* NUEVAS LÍNEAS PARA OCULTARLO */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    
+    /* Actualiza el transition para que incluya la opacidad */
+    transition: transform 0.2s, background-color 0.2s, opacity 1s ease-in-out;
+}
+
+/* Esta clase se añadirá con JS a los 15 segundos */
+.btn-continuar.visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
